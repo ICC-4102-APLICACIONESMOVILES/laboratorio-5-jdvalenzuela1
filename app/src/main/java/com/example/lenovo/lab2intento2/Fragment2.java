@@ -14,10 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.lenovo.lab2intento2.Database.FormDatabase;
+import com.example.lenovo.lab2intento2.Modelos.Forms;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+// Vista Formularios
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +80,8 @@ public class Fragment2 extends Fragment {
                 mainListView = (ListView) getActivity().findViewById(R.id.forms);
 
                 formDatabase = Room.databaseBuilder(getActivity(),FormDatabase.class, DATABASE_NAME).build();
-                List<Forms> allObjects = formDatabase.daoAccess().fetchAllForms();
+
+                List<Forms> allObjects = formDatabase.daoForms().fetchAllForms();
 
                 ArrayList<Forms>  allObjects_t = new ArrayList<Forms>(allObjects);
 

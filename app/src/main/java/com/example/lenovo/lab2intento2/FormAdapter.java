@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.lenovo.lab2intento2.Modelos.Forms;
+
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;

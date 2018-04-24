@@ -1,6 +1,7 @@
 package com.example.lenovo.lab2intento2;
 
 import android.app.Fragment;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.lenovo.lab2intento2.Database.FormDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity
 
     private TextView emailText;
     public static final String MY_PREFS_NAME = "credencialesAcceso";
+    private static final String DATABASE_NAME = "forms_db";
     private NetworkManager networkManager;
+    public FormDatabase formDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +49,17 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String tokenString = prefs.getString("Token", null);
 
+        formDatabase = Room.databaseBuilder(getApplicationContext(),
+                FormDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
+
         if (tokenString != null) {
             tokenString = prefs.getString("Token", "");
           //  emailText.setText(emailString);
         }
-        else
-        {
+        else {
             Intent intent = new Intent(this, Main2Activity.class);
-            startActivityForResult(intent,1);
+            startActivityForResult(intent, 1);
         }
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -142,6 +147,13 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                formDatabase.daoForms().deleteAllForms();
+            }
+        }) .start();
+
         Intent intent = new Intent(this, Main2Activity.class);
         startActivityForResult(intent,1);
     }
@@ -167,12 +179,14 @@ public class MainActivity extends AppCompatActivity
                         JSONObject headers = response.optJSONObject("headers");
                         String token = headers.optString("Authorization", "");
 
-                        Toast.makeText(getApplicationContext(), "TOKEN: "+token, Toast.LENGTH_SHORT).show();
-//saddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                        Toast.makeText(getApplicationContext(), "Usuario ingresado con exito", Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                         editor.putString("Token", token);
                         editor.apply();
+                        LoginForms loginForms = new LoginForms(networkManager, formDatabase);
+                        loginForms.getForms();
                         getForms();
+
                     }
                 }, new Response.ErrorListener() {
 

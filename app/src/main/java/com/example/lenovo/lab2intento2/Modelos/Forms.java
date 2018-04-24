@@ -1,4 +1,4 @@
-package com.example.lenovo.lab2intento2;
+package com.example.lenovo.lab2intento2.Modelos;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -18,6 +18,7 @@ public class Forms {
     private String Date;
     private String Category;
     private String Comment;
+    private Integer Questions;
 
     public Forms() {
     }
@@ -35,5 +36,8 @@ public class Forms {
 
     public String getComment() { return Comment; }
     public void setComment(String Comment) { this.Comment = Comment; }
+
+    public Integer getQuestions() { return Questions; }
+    public void setQuestions(Integer Questions) { this.Questions = Questions; }
 
 }

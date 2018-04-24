@@ -17,8 +17,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.example.lenovo.lab2intento2.Database.FormDatabase;
+import com.example.lenovo.lab2intento2.Modelos.Forms;
 
+import java.lang.reflect.Array;
+// Agregar Formulario
 
 public class Fragment1 extends Fragment {
 
@@ -95,7 +98,7 @@ public class Fragment1 extends Fragment {
                             form.setDate(fechaString);
                             form.setCategory(categoriaString);
                             form.setComment(comentarioString);
-                            formDatabase.daoAccess().insertOnlySingleForm(form);
+                            formDatabase.daoForms().insertOnlySingleForm(form);
                         }
                     }) .start();
 

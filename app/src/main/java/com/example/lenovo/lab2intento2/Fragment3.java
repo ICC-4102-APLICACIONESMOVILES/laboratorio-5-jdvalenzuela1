@@ -14,6 +14,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// Vista resumen
+
 
 /**
  * A simple {@link Fragment} subclass.
