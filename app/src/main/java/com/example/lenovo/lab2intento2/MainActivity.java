@@ -185,7 +185,6 @@ public class MainActivity extends AppCompatActivity
                         editor.apply();
                         LoginForms loginForms = new LoginForms(networkManager, formDatabase);
                         loginForms.getForms();
-                        getForms();
 
                     }
                 }, new Response.ErrorListener() {
@@ -205,23 +204,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void getForms(){
-        networkManager.getForms(new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                System.out.println(response);
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO: Handle error
-                System.out.println(error);
-            }
-        });
-    }
     @Override
     public void onFragmentInteraction(Uri uri) {
 

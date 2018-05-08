@@ -16,7 +16,7 @@ import com.example.lenovo.lab2intento2.Modelos.Questions;
 
 
 @Database(entities = {Forms.class, Answers.class, Questions.class}, version = 1, exportSchema = false)
-public abstract class FormDatabase extends RoomDatabase {
+public abstract class   FormDatabase extends RoomDatabase {
     public abstract DaoForms daoForms() ;
     public abstract DaoAnswers daoAnswers() ;
     public abstract DaoQuestions daoQuestions() ;

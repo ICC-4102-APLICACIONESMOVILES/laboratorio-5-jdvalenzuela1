@@ -3,6 +3,7 @@ package com.example.lenovo.lab2intento2;
 import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -92,10 +94,16 @@ public class Fragment2 extends Fragment {
                     @Override
                     public void run() {
                         mainListView.setAdapter(adapter);
+
+                        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent myintent = new Intent(getActivity(), FormRespuestas.class);
+                                startActivityForResult(myintent, 0);
+                            }
+                        });
                     }
                 });
-
-
             }
         }) .start();
 
